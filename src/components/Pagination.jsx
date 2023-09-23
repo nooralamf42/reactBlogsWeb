@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Container from "./Container";
 import { AppContext } from "../context/AppContext";
+import { useLocation } from "react-router-dom";
 
 export default function Pagination() {
-  let { page, totalPages, getNewPost} = useContext(AppContext);
+  let { page,setPage, totalPages, handlePage} = useContext(AppContext);
+  // let location = useLocation().pathname;
   function clickHandler(symbol) {
-    
     if(symbol===-1){
-      getNewPost(-1)
+      handlePage(page-1)
     }
     else{
-      getNewPost(1)
+      handlePage(page+1)
     }
   }
   return (

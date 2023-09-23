@@ -1,21 +1,29 @@
-import Header from './components/Header'
-import Posts from './components/Posts'
-import Pagination from './components/Pagination'
+import { useLocation, useSearchParams } from 'react-router-dom'
+import MyRoutes from './path/path'
 import { useContext, useEffect } from 'react'
 import { AppContext } from './context/AppContext'
 
 function App() {
-  let {getPosts} = useContext(AppContext)
-
+  let {fetchData} = useContext(AppContext)
+  let location = useLocation();
+  let [searchParams, setSearchParams] = useSearchParams()
   useEffect(()=>{
-    getPosts()
-  }, [])
+    // if(location.includes("blog")){
+    //   let blogId = location.split("/").at(-1)
+    //   fetchData(1,blogId, false)
+    // }
+    let page = searchParams.get("page") ?? 1
+    console.log(location.search)
+    if(location.pathname.includes("tags")){
+      let tag = location.pathname.split("/").at(-1)
+      fetchData(page,false, tag)
+    }
+    else{
+      fetchData(page)
+    }
+  }, [location])
   return (
-    <>
-      <Header/>
-      <Posts/>
-      <Pagination/>
-    </>
+    <MyRoutes/>
   )
 }
 

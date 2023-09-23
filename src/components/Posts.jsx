@@ -1,16 +1,14 @@
-import React, { useContext } from 'react'
-import Container from './Container'
-import { AppContext } from '../context/AppContext'
-import Card from './Card';
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import Card from "./Card";
+import Loading from "./Loading";
+
 
 export default function Posts() {
-
-    let {posts, loading} = useContext(AppContext);
+  let { posts, loading, page} = useContext(AppContext);
   return (
     <div className="my-28">
-    <Container>
-        <Card posts={posts}/>
-    </Container>
+     {loading ? <Loading /> : <Card posts={posts} page={page}/>}
     </div>
-  )
+  );
 }
