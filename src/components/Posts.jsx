@@ -7,7 +7,7 @@ import Loading from "./Loading";
 export default function Posts() {
   let { posts, loading, page} = useContext(AppContext);
   return (
-    <div className="my-28">
+    <div>
      {loading ? <Loading /> : <Card posts={posts} page={page}/>}
     </div>
   );

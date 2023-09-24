@@ -5,7 +5,7 @@ export default function ({tags,page}) {
   return (
     <div className="flex flex-wrap">
       {tags.map((tag, index)=>(
-      <Link to={`/tags/${tag.replace("/ /g","-")}`} href='' className='mr-2 text-blue-700 underline text-sm font-semibold' key={index}>#{tag}</Link>
+      <Link to={`/tags/${tag.replaceAll(" ","-")}`} href='' className='mr-2 text-blue-700 underline text-sm font-semibold' key={index}>#{tag}</Link>
     ))}
     </div>
   )

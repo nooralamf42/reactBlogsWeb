@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "./Header";
 import Pagination from "./Pagination";
 import Container from "./Container";
@@ -8,7 +7,7 @@ export default function ({ children, orignal }) {
     <>
       <Header />
       <Container>
-        <div className="my-28">{children}</div>
+        <div className="my-28 ">{children}</div>
       </Container>
       {orignal && <Pagination />}
     </>

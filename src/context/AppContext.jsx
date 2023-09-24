@@ -1,9 +1,12 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import {api} from "../api.js"
+import { useNavigate } from "react-router-dom";
 export const AppContext = createContext()
 
+
 function AppContextProvider({children}){
+    let API = api;
     let [loading, setLoading] = useState(false)
     let [page, setPage] = useState(0)
     let [totalPages, setTotalPages] = useState(null)
@@ -11,7 +14,9 @@ function AppContextProvider({children}){
     let [blogs, setBlogs] = useState([])
     let [relatedBlogs, setRelatedBlogs] = useState([])
 
-    async function fetchData(page=1, blogID, tag){
+    let navigate= useNavigate()
+
+    async function fetchData(page=1, blogID=false, tag=false, category=false){
         if(blogID){
             try{
                 setLoading(true)
@@ -26,11 +31,16 @@ function AppContextProvider({children}){
             }
             setLoading(false)
         }
-
-        else if(tag){
+        else{
+            API += `?page=${page}`
+            if(tag)
+                API += `&tag=${tag}`
+            else if(category)
+                API += `&category=${category}`
             try{
+                console.log(api)
                 setLoading(true)
-                let response = await axios.get(`${api}?page=${page}&tag=${tag}`);
+                let response = await axios.get(API)
                 let data = await response.data;
                 setPage(data.page)
                 console.log(data.page)
@@ -44,26 +54,11 @@ function AppContextProvider({children}){
             setLoading(false)
         }
 
-        else{
-            try{
-                setLoading(true)
-                let response = await axios.get(`${api}?page=${page}`);
-                let data = await response.data;
-                setPage(data.page)
-                setTotalPages(data.totalPages)
-                setPosts(data.posts)
-            }
-            
-            catch(e){
-                console.log(e)
-            }
-            setLoading(false)
-        }
     }
 
     function handlePage(page){
+        navigate(`?page=${page}`);
         setPage(page)
-        fetchData(page)
     }
     
     const value = {

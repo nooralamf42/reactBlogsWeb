@@ -1,11 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import{ useContext} from "react";
 import Container from "./Container";
 import { AppContext } from "../context/AppContext";
-import { useLocation } from "react-router-dom";
 
 export default function Pagination() {
-  let { page,setPage, totalPages, handlePage} = useContext(AppContext);
-  // let location = useLocation().pathname;
+  let { page, totalPages, handlePage} = useContext(AppContext);
   function clickHandler(symbol) {
     if(symbol===-1){
       handlePage(page-1)

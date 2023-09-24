@@ -5,7 +5,7 @@ import Tag from "../pages/Tag";
 import NotFound from "../pages/NotFound";
 import Blog from "../pages/Blog";
 
-export default function MyRoutes() {
+export default function MyRoute() {
   return (
     <Routes>
       <Route path="/" Component={Home} />

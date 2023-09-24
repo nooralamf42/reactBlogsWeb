@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext} from 'react'
 import PageTemplate from '../components/PageTemplate'
 import { AppContext } from '../context/AppContext'
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import BackBtn from '../components/BackBtn';
-import Card from '../components/Card';
+import Posts from '../components/Posts';
 
 export default function Tag() {
-  let {totalPages,loading, posts, page} = useContext(AppContext);
+  let {totalPages,posts} = useContext(AppContext);
   let location = useLocation()
   let tagName = location.pathname.replace("/tags/","")
   return (
@@ -14,7 +14,10 @@ export default function Tag() {
         <>
           <BackBtn/>
           <h1 className='font-bold text-3xl mt-4'>Blogs tagged with <span className='text-blue-500'>#{tagName.replace(/%20/g, " ")}</span></h1>
-          <Card posts={posts} page={page}/>
+          {
+            posts.length ?
+          <Posts/> : <h1 className='text-3xl font-semibold text-center mt-40'>No posts found!</h1>
+          }
         </>
     </PageTemplate>
   )
